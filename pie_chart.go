@@ -155,6 +155,10 @@ func (pc PieChart) drawSlices(r Renderer, canvasBox Box, values []Value) {
 	// draw the labels
 	total = 0
 	for index, v := range values {
+
+		if v.OnlyLegend {
+			continue
+		}
 		v.Style.InheritFrom(pc.stylePieChartValue(index)).WriteToRenderer(r)
 		if len(v.Label) > 0 {
 			delta2 = PercentToRadians(total + (v.Value / 2.0))

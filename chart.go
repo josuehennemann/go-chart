@@ -142,6 +142,8 @@ func (c Chart) Render(rp RendererProvider, w io.Writer) error {
 
 	c.drawTitle(r)
 
+	fmt.Println(canvasBox)
+
 	for _, a := range c.Elements {
 		a(r, canvasBox, c.styleDefaultsElements())
 	}

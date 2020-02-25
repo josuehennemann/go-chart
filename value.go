@@ -5,6 +5,7 @@ type Value struct {
 	Style Style
 	Label string
 	Value float64
+	OnlyLegend bool
 }
 
 // Values is an array of Value.
@@ -39,6 +40,7 @@ func (vs Values) Normalize() []Value {
 				Style: v.Style,
 				Label: v.Label,
 				Value: RoundDown(v.Value/total, 0.0001),
+				OnlyLegend: v.OnlyLegend,
 			})
 		}
 	}
