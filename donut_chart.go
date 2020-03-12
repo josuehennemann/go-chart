@@ -131,25 +131,21 @@ func (pc DonutChart) drawSlices(r Renderer, canvasBox Box, values []Value) {
 	var rads, delta, delta2, total float64
 	var lx, ly int
 
-	if len(values) == 1 {
-		pc.styleDonutChartValue(0).WriteToRenderer(r)
+
+	for index, v := range values {
+		v.Style.InheritFrom(pc.styleDonutChartValue(index)).WriteToRenderer(r)
 		r.MoveTo(cx, cy)
-		r.Circle(radius, cx, cy)
-	} else {
-		for index, v := range values {
-			v.Style.InheritFrom(pc.styleDonutChartValue(index)).WriteToRenderer(r)
-			r.MoveTo(cx, cy)
-			rads = PercentToRadians(total)
-			delta = PercentToRadians(v.Value)
+		rads = PercentToRadians(total)
+		delta = PercentToRadians(v.Value)
 
-			r.ArcTo(cx, cy, (radius / 1.25), (radius / 1.25), rads, delta)
+		r.ArcTo(cx, cy, (radius / 1.25), (radius / 1.25), rads, delta)
 
-			r.LineTo(cx, cy)
-			r.Close()
-			r.FillStroke()
-			total = total + v.Value
-		}
+		r.LineTo(cx, cy)
+		r.Close()
+		r.FillStroke()
+		total = total + v.Value
 	}
+	
 
 	//making the donut hole
 	v := Value{Value: 100, Label: "center"}
